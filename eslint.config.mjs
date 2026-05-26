@@ -57,6 +57,7 @@ const eslintConfig = defineConfig([
       "react/jsx-closing-bracket-location": ["error", "after-props"],
       "react/jsx-closing-tag-location": ["error", "tag-aligned"],
       "react/display-name": "off",
+      "react-hooks/set-state-in-effect": "off",
       "@stylistic/semi": "error",
       "@stylistic/implicit-arrow-linebreak": ["error", "beside"],
       "@stylistic/nonblock-statement-body-position": ["error", "beside"],

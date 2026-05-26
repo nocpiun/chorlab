@@ -3,6 +3,7 @@ import { cn } from "@/lib/utils";
 
 import "./globals.css";
 import { googleSansCode, notoSansSC, robotoSlab } from "@/lib/fonts";
+import { Navbar } from "@/components/navbar";
 
 export default function RootLayout({
   children,
@@ -16,6 +17,7 @@ export default function RootLayout({
       className={cn(notoSansSC.className, robotoSlab.className, googleSansCode.variable, "antialiased")}>
       <body>
         <ThemeProvider>
+          <Navbar />
           {children}
         </ThemeProvider>
       </body>
