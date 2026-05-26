@@ -1,15 +1,8 @@
-import { Geist, Geist_Mono, Inter } from "next/font/google"
-
-import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
+import { ThemeProvider } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'})
-
-const fontMono = Geist_Mono({
-  subsets: ["latin"],
-  variable: "--font-mono",
-})
+import "./globals.css";
+import { googleSansCode, notoSansSC, robotoSlab } from "@/lib/fonts";
 
 export default function RootLayout({
   children,
@@ -18,13 +11,14 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
+      lang="zh-cn"
       suppressHydrationWarning
-      className={cn("antialiased", fontMono.variable, "font-sans", inter.variable)}
-    >
+      className={cn(notoSansSC.className, robotoSlab.className, googleSansCode.variable, "antialiased")}>
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
       </body>
     </html>
-  )
+  );
 }
