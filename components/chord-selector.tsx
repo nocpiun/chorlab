@@ -1,6 +1,9 @@
 "use client";
 
 import type { ChordType, Pitch } from "@/lib/chords";
+import { Play } from "lucide-react";
+
+import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -9,6 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { CHORD_TYPES, Chord, PITCHES } from "@/lib/chords";
+import { playNotes } from "@/lib/tone";
 import { cn } from "@/lib/utils";
 import { useChord } from "@/contexts/chord-context";
 
@@ -20,6 +24,10 @@ const CHORD_TYPE_ENTRIES = Object.entries(CHORD_TYPES) as [
 export function ChordSelector({ className }: { className?: string }) {
   const { chord, setChord } = useChord();
   const [chordRoot, chordSuffix] = Chord.from(chord).name;
+
+  const handlePlay = () => {
+    playNotes(Chord.from(chord).notes());
+  };
 
   return (
     <div className={cn("flex flex-col gap-8", className)}>
@@ -66,6 +74,11 @@ export function ChordSelector({ className }: { className?: string }) {
             ))}
           </SelectContent>
         </Select>
+
+        <Button onClick={handlePlay} aria-label="播放和弦">
+          <Play />
+          播放
+        </Button>
       </div>
     </div>
   );

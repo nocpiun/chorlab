@@ -4,3 +4,7 @@ import { twMerge } from "tailwind-merge";
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+export function mod(n: number, m: number): number {
+  return ((n % m) + m) % m;
+}

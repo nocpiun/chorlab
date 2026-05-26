@@ -17,6 +17,7 @@ const defaultStorage: StorageSchema = {
     { root: "E", type: "maj" },
     { root: "E", type: "m7" },
     { root: "F", type: "maj" },
+    { root: "F", type: "maj7" },
     { root: "F", type: "min" },
     { root: "G", type: "maj" },
     { root: "G", type: "7" },

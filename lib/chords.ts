@@ -1,3 +1,5 @@
+import { mod } from "@/lib/utils";
+
 export const PITCHES = [
   "C", "C#", "D", "D#", "E", "F", "F#", "G", "Ab", "A", "Bb", "B",
 ] as const;
@@ -8,14 +10,14 @@ const PITCH_SEMITONES: Record<Pitch, number> = {
   "C#": 1,
   "D":  2,
   "D#": 3,
-  "E":  4,
-  "F":  5,
-  "F#": 6,
-  "G":  7,
-  "Ab": 8,
-  "A":  9,
-  "Bb": 10,
-  "B":  11,
+  "E":  -8,
+  "F":  -7,
+  "F#": -6,
+  "G":  -5,
+  "Ab": -4,
+  "A":  -3,
+  "Bb": -2,
+  "B":  -1,
 };
 
 const SEMITONE_TO_PITCH: Pitch[] = [
@@ -89,7 +91,7 @@ export class Chord implements IChord {
     const rootSemitone = PITCH_SEMITONES[this.root];
 
     return CHORD_TYPES[this.type].intervals.map((interval) => (
-      SEMITONE_TO_PITCH[(rootSemitone + interval) % 12]
+      SEMITONE_TO_PITCH[mod(rootSemitone + interval, 12)]
     ));
   }
 
@@ -98,7 +100,7 @@ export class Chord implements IChord {
 
     return CHORD_TYPES[this.type].intervals.map((interval) => {
       const abs = rootSemitone + interval;
-      const pitch = SEMITONE_TO_PITCH[abs % 12];
+      const pitch = SEMITONE_TO_PITCH[mod(abs, 12)];
       const octave = rootOctave + Math.floor(abs / 12);
       return pitch + octave;
     });
