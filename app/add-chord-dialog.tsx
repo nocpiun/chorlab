@@ -37,12 +37,13 @@ export function AddChordDialog({
 }>) {
   const [root, setRoot] = useState<Pitch>("C");
   const [type, setType] = useState<ChordType>("maj");
+  const [open, setOpen] = useState(false);
 
   const previewChord = new Chord(root, type);
   const [previewRoot, previewSuffix] = previewChord.name;
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild={asChild}>{children}</DialogTrigger>
       <DialogContent>
         <DialogHeader>
@@ -98,7 +99,11 @@ export function AddChordDialog({
               取消
             </Button>
           </DialogClose>
-          <Button onClick={() => onAdd({ root, type })}>
+          <Button
+            onClick={() => {
+              onAdd({ root, type });
+              setOpen(false);
+            }}>
             添加
           </Button>
         </DialogFooter>

@@ -10,19 +10,30 @@ import { ChordSelector } from "@/components/chord-selector";
 import { ChordTable } from "@/components/chord-table";
 import { getStorageItem, setStorageItem } from "@/lib/storage";
 import { AddChordDialog } from "./add-chord-dialog";
+import { useEmitter } from "@/hooks/use-emitter";
 
 export default function Page() {
-  const [favorites, setFavorites] = useState<IChord[]>([]);
+  const [favorites, setFavorites] = useState<Set<IChord>>(new Set());
 
   const handleAdd = (chord: IChord) => {
-    const next = [...favorites, chord];
-    setFavorites(next);
-    setStorageItem("favorite-chords", next);
+    favorites.add(chord);
+    setFavorites(new Set(favorites));
+    setStorageItem("favorite-chords", Array.from(favorites));
+  };
+
+  const handleRemove = (chord: IChord) => {
+    favorites.delete(chord);
+    setFavorites(new Set(favorites));
+    setStorageItem("favorite-chords", Array.from(favorites));
   };
 
   useEffect(() => {
-    setFavorites(getStorageItem("favorite-chords"));
+    setFavorites(new Set(getStorageItem("favorite-chords")));
   }, []);
+
+  useEmitter("add-favorite-chord", (chord: IChord) => {
+    handleAdd(chord);
+  });
 
   return (
     <ChordProvider>
@@ -30,9 +41,10 @@ export default function Page() {
         <div className="flex-1 pt-20 px-[8%] flex flex-col gap-16">
           <ChordSelector className="pl-6"/>
           <div className="flex flex-wrap gap-1">
-            {favorites.map((c, i) => (
+            {Array.from(favorites).map((c, i) => (
               <ChordItem
                 chord={c}
+                onRemove={() => handleRemove(c)}
                 key={`${c.root}-${c.type}-${i}`}/>
             ))}
             <AddChordDialog

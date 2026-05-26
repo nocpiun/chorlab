@@ -83,7 +83,7 @@ export class Chord implements IChord {
     return new Chord(parts.root ?? this.root, parts.type ?? this.type);
   }
 
-  public get name(): [string, string] {
+  public get name(): [Pitch, string] {
     return [this.root, CHORD_TYPES[this.type].suffix];
   }
 
