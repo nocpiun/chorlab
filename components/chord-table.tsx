@@ -1,0 +1,44 @@
+import type { ChordType } from "@/lib/chords";
+import { CHORD_TYPES, PITCHES } from "@/lib/chords";
+import { cn } from "@/lib/utils";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "./ui/tabs";
+import { ChordItem } from "./chord-item";
+
+const CHORD_TYPE_KEYS = Object.keys(CHORD_TYPES) as ChordType[];
+
+export function ChordTable({ className }: { className?: string }) {
+  return (
+    <Card className={cn("rounded-tr-none rounded-br-none", className)}>
+      <CardHeader>
+        <CardTitle>所有和弦</CardTitle>
+        <CardDescription>
+          按根音分类排列的所有和弦，点击和弦以播放
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Tabs defaultValue="C">
+          <TabsList className="w-full h-10!">
+            {PITCHES.map((pitch) => (
+              <TabsTrigger
+                className="text-base"
+                value={pitch}
+                key={pitch}>
+                {pitch}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+          {PITCHES.map((pitch) => (
+            <TabsContent value={pitch} key={pitch}>
+              <div className="flex flex-wrap pt-2">
+                {CHORD_TYPE_KEYS.map((type) => (
+                  <ChordItem key={type} chord={{ root: pitch, type }} />
+                ))}
+              </div>
+            </TabsContent>
+          ))}
+        </Tabs>
+      </CardContent>
+    </Card>
+  );
+}

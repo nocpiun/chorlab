@@ -14,11 +14,13 @@ export default function RootLayout({
     <html
       lang="zh-cn"
       suppressHydrationWarning
-      className={cn(notoSansSC.className, robotoSlab.className, googleSansCode.variable, "antialiased")}>
+      className={cn(notoSansSC.className, robotoSlab.className, googleSansCode.variable, "antialiased overflow-hidden")}>
       <body>
         <ThemeProvider>
-          <Navbar />
-          {children}
+          <main className="h-screen flex flex-col">
+            <Navbar />
+            {children}
+          </main>
         </ThemeProvider>
       </body>
     </html>

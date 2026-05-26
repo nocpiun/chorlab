@@ -1,7 +1,6 @@
 "use client";
 
 import type { ChordType, Pitch } from "@/lib/chords";
-import { useMemo, useState } from "react";
 import {
   Select,
   SelectContent,
@@ -10,29 +9,31 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { CHORD_TYPES, Chord, PITCHES } from "@/lib/chords";
+import { cn } from "@/lib/utils";
+import { useChord } from "@/contexts/chord-context";
 
 const CHORD_TYPE_ENTRIES = Object.entries(CHORD_TYPES) as [
   ChordType,
   (typeof CHORD_TYPES)[ChordType],
 ][];
 
-export function ChordSelector() {
-  const [chord, setChord] = useState<Chord>(Chord.default());
-  const [chordRoot, chordType] = useMemo(() => chord.name, [chord]);
+export function ChordSelector({ className }: { className?: string }) {
+  const { chord, setChord } = useChord();
+  const [chordRoot, chordSuffix] = Chord.from(chord).name;
 
   return (
-    <div className="flex flex-col items-center justify-center gap-8">
+    <div className={cn("flex flex-col gap-8", className)}>
       <div className="text-9xl font-semibold tracking-tight tabular-nums">
         {chordRoot}
         <span className="text-7xl">
-          {chordType}
+          {chordSuffix}
         </span>
       </div>
 
-      <div className="flex flex-wrap items-center justify-center gap-2">
+      <div className="flex flex-wrap gap-2">
         <Select
           value={chord.root}
-          onValueChange={(value) => setChord(chord.with({ root: value as Pitch }))}>
+          onValueChange={(value) => setChord({ ...chord, root: value as Pitch })}>
           <SelectTrigger className="w-24 font-semibold" aria-label="根音">
             <SelectValue />
           </SelectTrigger>
@@ -50,7 +51,7 @@ export function ChordSelector() {
 
         <Select
           value={chord.type}
-          onValueChange={(value) => setChord(chord.with({ type: value as ChordType }))}>
+          onValueChange={(value) => setChord({ ...chord, type: value as ChordType })}>
           <SelectTrigger className="w-52" aria-label="和弦类型">
             <SelectValue />
           </SelectTrigger>

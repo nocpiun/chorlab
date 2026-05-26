@@ -55,12 +55,12 @@ export const CHORD_TYPES = {
 
 export type ChordType = keyof typeof CHORD_TYPES;
 
-export interface ChordParts {
+export interface IChord {
   root: Pitch
   type: ChordType
 }
 
-export class Chord {
+export class Chord implements IChord {
   public readonly root: Pitch;
   public readonly type: ChordType;
 
@@ -73,7 +73,11 @@ export class Chord {
     return new Chord("C", "maj");
   }
 
-  public with(parts: Partial<ChordParts>): Chord {
+  public static from({ root, type }: IChord): Chord {
+    return new Chord(root, type);
+  }
+
+  public with(parts: Partial<IChord>): Chord {
     return new Chord(parts.root ?? this.root, parts.type ?? this.type);
   }
 

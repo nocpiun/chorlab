@@ -7,8 +7,8 @@ import { ThemeToggle } from "./theme-toggle";
 
 export function Navbar() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur">
-      <div className="mx-auto flex h-14 w-full max-w-6xl items-center justify-between px-4">
+    <header className="w-full border-b bg-background/80 backdrop-blur">
+      <div className="mx-auto flex h-14 w-full items-center justify-between px-10">
         <Link
           href="/"
           className={cn(
