@@ -15,7 +15,7 @@ export function Navbar() {
             robotoSlab.className,
             "text-xl font-semibold tracking-tight",
           )}>
-          Chorlab
+          Chor<span className="text-yellow-600 dark:text-yellow-500">lab</span>
         </Link>
 
         <nav className="flex items-center gap-1">
