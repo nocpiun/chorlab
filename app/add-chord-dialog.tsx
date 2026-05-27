@@ -16,6 +16,7 @@ import {
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
@@ -73,11 +74,13 @@ export function AddChordDialog({
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              {PITCHES.map((p) => (
-                <SelectItem key={p} value={p}>
-                  {p}
-                </SelectItem>
-              ))}
+              <SelectGroup>
+                {PITCHES.map((p) => (
+                  <SelectItem key={p} value={p}>
+                    {p}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
             </SelectContent>
           </Select>
 
@@ -86,11 +89,16 @@ export function AddChordDialog({
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              {CHORD_TYPE_ENTRIES.map(([key, def]) => (
-                <SelectItem key={key} value={key}>
-                  {def.label}
-                </SelectItem>
-              ))}
+              <SelectGroup>
+                {CHORD_TYPE_ENTRIES.map(([key, def]) => (
+                  <SelectItem value={key} key={key}>
+                    {def.suffix || "maj"}
+                    <span className="text-muted-foreground">
+                      {def.label}
+                    </span>
+                  </SelectItem>
+                ))}
+              </SelectGroup>
             </SelectContent>
           </Select>
         </div>

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
@@ -49,14 +50,16 @@ export function ChordSelector({ className }: { className?: string }) {
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            {PITCHES.map((pitch) => (
-              <SelectItem
-                className="font-semibold"
-                value={pitch}
-                key={pitch}>
-                {pitch}
-              </SelectItem>
-            ))}
+            <SelectGroup>
+              {PITCHES.map((pitch) => (
+                <SelectItem
+                  className="font-semibold"
+                  value={pitch}
+                  key={pitch}>
+                  {pitch}
+                </SelectItem>
+              ))}
+            </SelectGroup>
           </SelectContent>
         </Select>
 
@@ -67,14 +70,16 @@ export function ChordSelector({ className }: { className?: string }) {
             <SelectValue />
           </SelectTrigger>
           <SelectContent position="popper">
-            {CHORD_TYPE_ENTRIES.map(([key, def]) => (
-              <SelectItem value={key} key={key}>
-                {def.suffix || "maj"}
-                <span className="text-muted-foreground">
-                  {def.label}
-                </span>
-              </SelectItem>
-            ))}
+            <SelectGroup>
+              {CHORD_TYPE_ENTRIES.map(([key, def]) => (
+                <SelectItem value={key} key={key}>
+                  {def.suffix || "maj"}
+                  <span className="text-muted-foreground">
+                    {def.label}
+                  </span>
+                </SelectItem>
+              ))}
+            </SelectGroup>
           </SelectContent>
         </Select>
 
