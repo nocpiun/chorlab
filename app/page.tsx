@@ -19,6 +19,7 @@ import {
   SelectValue
 } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
+import { preloadPiano } from "@/lib/tone";
 
 export default function Page() {
   const [favorites, setFavorites] = useState<Set<IChord>>(new Set());
@@ -43,6 +44,7 @@ export default function Page() {
   };
 
   useEffect(() => {
+    preloadPiano();
     setFavorites(new Set(getStorageItem("favorite-chords")));
   }, []);
 
