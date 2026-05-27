@@ -36,7 +36,7 @@ export function ChordItem({
     <div
       onClick={() => handleClick()}
       className={cn(
-        "relative select-none flex w-28 flex-col items-center gap-1 rounded-md bg-transparent p-3 text-left transition-colors cursor-pointer",
+        "relative select-none flex w-28 min-h-28 flex-col items-center gap-1 rounded-md bg-transparent p-3 text-left transition-colors cursor-pointer",
         chordRoot === "C" && "bg-amber-500/20 hover:bg-amber-500/50 dark:bg-yellow-800/50 dark:hover:bg-yellow-800",
         chordRoot === "D" && "bg-muted/80 hover:bg-muted",
         chordRoot === "E" && "bg-blue-500/20 hover:bg-blue-600/50 dark:bg-blue-800/50 dark:hover:bg-blue-800/80",
@@ -78,7 +78,7 @@ export function ChordItem({
       <div
         className={cn(
           googleSansCode.className,
-          "text-xs text-center text-muted-foreground",
+          "text-xs text-center text-muted-foreground mt-auto",
         )}>
         {pitches}
       </div>

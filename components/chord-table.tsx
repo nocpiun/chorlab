@@ -17,8 +17,8 @@ export function ChordTable({ className }: { className?: string }) {
           按根音分类排列的所有和弦，点击和弦以播放
         </CardDescription>
       </CardHeader>
-      <CardContent>
-        <Tabs defaultValue="C">
+      <CardContent className="min-h-0 h-full">
+        <Tabs defaultValue="C" className="h-full">
           <TabsList className="w-full h-10!">
             {PITCHES.map((pitch) => (
               <TabsTrigger
@@ -30,7 +30,7 @@ export function ChordTable({ className }: { className?: string }) {
             ))}
           </TabsList>
           {PITCHES.map((pitch) => (
-            <TabsContent value={pitch} key={pitch}>
+            <TabsContent className="overflow-y-auto" value={pitch} key={pitch}>
               <div className="flex gap-1 flex-wrap pt-2">
                 {CHORD_TYPE_KEYS.map((type) => {
                   const chord: IChord = { root: pitch, type };

@@ -25,6 +25,12 @@ export default function Page() {
   const [capo, setCapo] = useState(getStorageItem("capo"));
 
   const handleAdd = (chord: IChord) => {
+    for(const item of favorites) {
+      if(item.root === chord.root && item.type === chord.type) {
+        return;
+      }
+    }
+
     favorites.add(chord);
     setFavorites(new Set(favorites));
     setStorageItem("favorite-chords", Array.from(favorites));
@@ -46,11 +52,11 @@ export default function Page() {
 
   return (
     <ChordProvider>
-      <div className="flex-1 flex h-full">
-        <div className="flex-1 pt-20 px-[8%] flex flex-col gap-16">
-          <ChordSelector className="pl-6"/>
+      <div className="flex h-full min-h-0">
+        <div className="flex-1 px-[8%] pb-8 flex flex-col">
+          <ChordSelector />
 
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 min-h-0">
             <div className="flex items-center gap-3">
               <Label>变调夹</Label>
               <Select
@@ -67,14 +73,17 @@ export default function Page() {
                   <SelectGroup>
                     {PITCHES.map((pitch, i) => (
                       <SelectItem value={i.toString()} key={i}>
-                        {pitch}
+                        {i}
+                        <span className="text-muted-foreground">
+                          {pitch}
+                        </span>
                       </SelectItem>
                     ))}
                   </SelectGroup>
                 </SelectContent>
               </Select>
             </div>
-            <div className="flex flex-wrap gap-1">
+            <div className="flex flex-wrap gap-1 min-h-0 overflow-y-auto">
               {Array.from(favorites).map((c, i) => (
                 <ChordItem
                   chord={c}
@@ -88,7 +97,7 @@ export default function Page() {
                 <button
                   type="button"
                   aria-label="添加和弦"
-                  className="flex w-28 flex-col items-center justify-center gap-1 rounded-md bg-transparent p-3 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground cursor-pointer">
+                  className="flex w-28 min-h-28 flex-col items-center justify-center gap-1 rounded-md bg-transparent p-3 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground cursor-pointer">
                   <Plus className="size-8" />
                 </button>
               </AddChordDialog>

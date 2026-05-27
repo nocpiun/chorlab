@@ -34,7 +34,7 @@ export function ChordSelector({ className }: { className?: string }) {
   };
 
   return (
-    <div className={cn("flex flex-col gap-8", className)}>
+    <div className={cn("py-14 flex flex-col gap-8", className)}>
       <div className="text-9xl font-semibold tracking-tight tabular-nums">
         {chordRoot}
         <span className="text-7xl">
