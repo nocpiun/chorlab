@@ -2,7 +2,6 @@
 
 import type { ChordType, Pitch } from "@/lib/chords";
 import { Play } from "lucide-react";
-
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -12,7 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { CHORD_TYPES, Chord, PITCHES } from "@/lib/chords";
-import { playNotes } from "@/lib/tone";
+import { playNotes, playNotesSplit } from "@/lib/tone";
 import { cn } from "@/lib/utils";
 import { useChord } from "@/contexts/chord-context";
 
@@ -27,6 +26,10 @@ export function ChordSelector({ className }: { className?: string }) {
 
   const handlePlay = () => {
     playNotes(Chord.from(chord).notes());
+  };
+
+  const handleSplitPlay = () => {
+    playNotesSplit(Chord.from(chord).notes());
   };
 
   return (
@@ -78,6 +81,11 @@ export function ChordSelector({ className }: { className?: string }) {
         <Button onClick={handlePlay} aria-label="播放和弦">
           <Play />
           播放
+        </Button>
+
+        <Button onClick={handleSplitPlay} variant="outline" aria-label="拆分播放和弦">
+          <Play />
+          拆分播放
         </Button>
       </div>
     </div>

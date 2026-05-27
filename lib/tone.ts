@@ -65,8 +65,39 @@ export async function preloadPiano(): Promise<void> {
 
 export async function playNotes(
   notes: string[],
-  duration: string = "8n",
+  duration: string = "2n",
 ): Promise<void> {
   const sampler = await getPianoSampler();
   sampler.triggerAttackRelease(notes, duration);
+}
+
+const wait = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
+
+export async function playNotesSplit(
+  notes: string[],
+  options: {
+    intervalMs?: number;
+    sustainMs?: number;
+    gapMs?: number;
+    chordDuration?: string;
+  } = {},
+): Promise<void> {
+  const {
+    intervalMs = 250,
+    sustainMs = 500,
+    gapMs = 300,
+    chordDuration = "2n",
+  } = options;
+
+  const sampler = await getPianoSampler();
+
+  for(let i = 0; i < notes.length; i++) {
+    sampler.triggerAttack(notes[i]);
+    if(i < notes.length - 1) await wait(intervalMs);
+  }
+  await wait(sustainMs);
+  sampler.triggerRelease(notes);
+
+  await wait(gapMs);
+  sampler.triggerAttackRelease(notes, chordDuration);
 }

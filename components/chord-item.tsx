@@ -1,24 +1,27 @@
 "use client";
 
-import type { IChord } from "@/lib/chords";
+import type { IChord, } from "@/lib/chords";
 import { Plus, X } from "lucide-react";
 import { Chord, CHORD_TYPES } from "@/lib/chords";
 import { googleSansCode } from "@/lib/fonts";
-import { cn } from "@/lib/utils";
+import { addCapoToPitch, cn } from "@/lib/utils";
 import { useChord } from "@/contexts/chord-context";
 import { playNotes } from "@/lib/tone";
 import { Button } from "./ui/button";
 
 export function ChordItem({
-  chord: c,
+  chord: _c,
+  capo = 0,
   onRemove,
   onAdd,
 }: {
   chord: IChord
+  capo?: number
   onRemove?: () => void
   onAdd?: () => void
 }) {
   const { setChord } = useChord();
+  const c: IChord = { root: addCapoToPitch(_c.root, capo), type: _c.type };
   const chord = Chord.from(c);
   const [chordRoot, chordSuffix] = chord.name;
   const label = CHORD_TYPES[chord.type].label;
@@ -33,7 +36,7 @@ export function ChordItem({
     <div
       onClick={() => handleClick()}
       className={cn(
-        "relative flex w-28 flex-col items-center gap-1 rounded-md bg-transparent p-3 text-left transition-colors cursor-pointer",
+        "relative select-none flex w-28 flex-col items-center gap-1 rounded-md bg-transparent p-3 text-left transition-colors cursor-pointer",
         chordRoot === "C" && "bg-amber-500/20 hover:bg-amber-500/50 dark:bg-yellow-800/50 dark:hover:bg-yellow-800",
         chordRoot === "D" && "bg-muted/80 hover:bg-muted",
         chordRoot === "E" && "bg-blue-500/20 hover:bg-blue-600/50 dark:bg-blue-800/50 dark:hover:bg-blue-800/80",

@@ -1,10 +1,12 @@
 import type { IChord } from "@/lib/chords";
 
 export interface StorageSchema {
+  "capo": number
   "favorite-chords": IChord[]
 }
 
 const defaultStorage: StorageSchema = {
+  "capo": 0,
   "favorite-chords": [
     { root: "C", type: "maj" },
     { root: "C", type: "maj7" },

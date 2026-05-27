@@ -21,6 +21,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { CHORD_TYPES, Chord, PITCHES } from "@/lib/chords";
+import { cn } from "@/lib/utils";
+import { googleSansCode } from "@/lib/fonts";
 
 const CHORD_TYPE_ENTRIES = Object.entries(CHORD_TYPES) as [
   ChordType,
@@ -60,7 +62,7 @@ export function AddChordDialog({
               {previewSuffix}
             </span>
           </div>
-          <div className="text-xs text-muted-foreground">
+          <div className={cn("text-xs text-muted-foreground", googleSansCode.className)}>
             {previewChord.pitches.join(" ")}
           </div>
         </div>
